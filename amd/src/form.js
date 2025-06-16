@@ -1,0 +1,28 @@
+define(['jquery', 'core/ajax', 'core/notification'], function($,Ajax, Notification) {
+    return {
+        init: function() {
+            document.getElementById('myblock-submit').addEventListener('click', function() {
+                const message = document.getElementById('myblock-message').value.trim();
+                window.console.log("test log");
+
+
+                if (!message) {
+                    alert("Please enter a message.");
+                    return;
+                }
+
+                Ajax.call([{
+                    methodname: 'block_myblock_save_message',
+                    args: { message: message },
+                    done: function(response) {
+                        document.getElementById('myblock-response').innerText = response.status;
+                        document.getElementById('myblock-message').value = '';
+                    },
+                    fail: function(error) {
+                        Notification.exception(error);
+                    }
+                }]);
+            });
+        }
+    };
+});
