@@ -78,6 +78,7 @@ class block_myblock extends block_base {
         $this->content->text = $OUTPUT->render_from_template('block_myblock/form', $data);
         $this->content->footer = '';
 
+        $this->page->requires->js_call_amd('block_myblock/form', 'init');
         return $this->content;
     }
 
